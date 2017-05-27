@@ -1,0 +1,16 @@
+.container {
+    max-width: 400px;
+    margin: 0px auto;
+    background: #d1e0e0;
+    padding: 10px;
+}
+
+#equation-field {
+    background: #c1d0f0;
+    height: 40px;
+    margin: 0 15px 30px 15px;
+}
+
+#equation-label {
+    font-size: 30px;
+}
