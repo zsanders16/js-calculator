@@ -64,7 +64,6 @@ clearButton.addEventListener('click', function(){
     leftHand = '';
     rightHand = '';
     operator = '';
-    //answer = '';
     var equation = leftHand + " " + operator + " " + rightHand;
     addToScreen(equation);
 })
@@ -115,8 +114,6 @@ var keys = [];
 function dealWithKeyboard(e){
     
         keys[e.keyCode] = true;
-
-        console.log(e.keyCode);
 
         if(keys[189]){
             keys = [];
