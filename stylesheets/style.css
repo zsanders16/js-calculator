@@ -1,14 +1,11 @@
 .container {
     max-width: 400px;
     margin: 0px auto;
-    background: #d1e0e0;
     padding: 20px;
-    border: 5px solid black;
     border-radius: 15px;
 }
 
 #equation-field {
-    background: #c1d0f0;
     height: 40px;
     margin: 0 15px 30px 15px;
 }
