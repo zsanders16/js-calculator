@@ -11,6 +11,8 @@ var screen = document.getElementById('equation-label');
 
 //add inputed number to screen
 function addToScreen(toDisplay){
+    console.log('in addtoscreen function');
+    console.log(toDisplay);
     screen.innerText = toDisplay;
 }
 
@@ -62,17 +64,26 @@ clearButton.addEventListener('click', function(){
     leftHand = '';
     rightHand = '';
     operator = '';
-    answer = '';
+    //answer = '';
     var equation = leftHand + " " + operator + " " + rightHand;
     addToScreen(equation);
 })
 
 //set action for enter button
-enterButton.addEventListener('click', function(){
+enterButton.addEventListener('click',  hitEnter);
+
+
+
+function hitEnter(){
+    console.log('in hitenter function');
+    console.log(operator);
+    console.log(leftHand);
+    console.log(rightHand);
     switch (operator){
         case '+':
             answer = parseFloat(leftHand) + parseFloat(rightHand);
             result = answer.toString();
+            console.log(result);
             addToScreen(result);
             clearLeftRightOperator();
             break;
@@ -95,74 +106,69 @@ enterButton.addEventListener('click', function(){
             clearLeftRightOperator();
             break;
     }
-})
+}
 
 //set action for keyboard 0-9 and operators
 window.addEventListener('keydown', dealWithKeyboard);
 
 var keys = [];
 function dealWithKeyboard(e){
-    console.log(e.keyCode)
-    if(e.code >= 'Digit0' && e.code <= 'Digit9' ){
-        selectDigitsFromKeyboard(e);
-    } else {
-        keys[e.keyCode] = true;
-        
-        if(keys[189]){
-            //TODO: add minus
-        }else if(keys[16] && keys[187]){
-            //TODO: add plus
-            console.log("hit plus");
-        }else if (keys[16] && keys[56]){
-              //TODO: add times
-        }else if (keys[191]){
-            //TODO: add divide
-        }else if(keys[190] ){
-            //TODO: add period
-        }else if(keys[13]){
-            //TODO: add enter key
-        }
-
-    }
-
-
     
+        keys[e.keyCode] = true;
+
+        console.log(e.keyCode);
+
+        if(keys[189]){
+            keys = [];
+            addOperatorsFromKeyboard('-');
+        }else if(keys[16] && keys[187]){
+            keys = [];
+            addOperatorsFromKeyboard('+');
+        }else if (keys[16] && keys[56]){
+            keys = [];
+            addOperatorsFromKeyboard('x');
+        }else if (keys[191]){
+            keys = [];
+            addOperatorsFromKeyboard('/');
+        }else if(keys[190] ){
+            keys = [];
+            addDigitsFromKeyboard('.')
+        }else if(keys[13]){
+            keys = [];
+            hitEnter();
+        }else if(keys[48]){
+            keys = [];
+            addDigitsFromKeyboard('0');
+        }else if(keys[49]){
+            keys = [];
+            addDigitsFromKeyboard('1')
+        }else if(keys[50]){
+            keys = [];
+            addDigitsFromKeyboard('2')
+        }else if(keys[51]){
+            keys = [];
+            addDigitsFromKeyboard('3')
+        }else if(keys[52]){
+            keys = [];
+            addDigitsFromKeyboard('4')
+        }else if(keys[53]){
+            keys = [];
+            addDigitsFromKeyboard('5')
+        }else if(keys[54]){
+            keys = [];
+            addDigitsFromKeyboard('6')
+        }else if(keys[55]){
+            keys = [];
+            addDigitsFromKeyboard('7')
+        }else if(keys[56]){
+            keys = [];
+            addDigitsFromKeyboard('8')
+        }else if(keys[57]){
+            keys = [];
+            addDigitsFromKeyboard('9')
+        }
 }
 
-function selectDigitsFromKeyboard(e){
-    switch (e.code){
-        case "Digit0":
-            addDigitsFromKeyboard('0')
-            break
-         case "Digit1":
-            addDigitsFromKeyboard('1')
-            break
-         case "Digit2":
-            addDigitsFromKeyboard('2')
-            break
-         case "Digit3":
-            addDigitsFromKeyboard('3')
-            break
-         case "Digit4":
-            addDigitsFromKeyboard('4')
-            break
-         case "Digit5":
-            addDigitsFromKeyboard('5')
-            break
-         case "Digit6":
-            addDigitsFromKeyboard('6')
-            break
-         case "Digit7":
-            addDigitsFromKeyboard('7')
-            break
-         case "Digit8":
-            addDigitsFromKeyboard('8')
-            break
-         case "Digit9":
-            addDigitsFromKeyboard('9')
-            break
-    }
-}
 
 function addDigitsFromKeyboard(number){
     if(operator.length){
@@ -175,6 +181,18 @@ function addDigitsFromKeyboard(number){
             }
         }else{
             leftHand += number;
+            var equation = leftHand + " " + operator + " " + rightHand;
+            addToScreen(equation);
+        }
+}
+
+function addOperatorsFromKeyboard(selectedOperator){
+    if(operator.length){
+            operator = selectedOperator;
+            var equation = leftHand + " " + operator + " " + rightHand;
+            addToScreen(equation);
+        }else{
+            operator += selectedOperator;
             var equation = leftHand + " " + operator + " " + rightHand;
             addToScreen(equation);
         }
